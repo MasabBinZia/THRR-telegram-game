@@ -20,11 +20,9 @@ export default function RiddleGame() {
   const [gameOver, setGameOver] = React.useState(false);
   const [gameStarted, setGameStarted] = React.useState(false);
   const [countDown, setCountDown] = React.useState(3);
-  const [prizeClaimed, setPrizeClaimed] = React.useState(false);
 
   const claimPrize = () => {
-    alert("Claim prize 10 token");
-    setPrizeClaimed(true);
+    alert("Congratulations! You've won 10 tokens!");
   };
 
   React.useEffect(() => {
@@ -60,12 +58,32 @@ export default function RiddleGame() {
     setCountDown(3);
     setCurrentRiddle(0);
     setScore(0);
-    setTimeLeft(60);
+    setTimeLeft(65);
     setGameOver(false);
     setGameStarted(true);
   };
 
+  const resetGameState = () => {
+    setCurrentRiddle(0);
+    setScore(0);
+    setTimeLeft(60);
+    setGameOver(false);
+    setGameStarted(false);
+    setCountDown(3);
+  };
+
+  const handleDisconnect = async () => {
+    await disconnect(wallet!);
+    resetGameState();
+  };
+
   const allCorrect = score === riddles.length;
+
+  React.useEffect(() => {
+    if (gameOver && allCorrect) {
+      claimPrize();
+    }
+  }, [gameOver, allCorrect]);
 
   return (
     <div>
@@ -93,24 +111,22 @@ export default function RiddleGame() {
           >
             <div>
               {shortenAddress(account.address)}
-              <button onClick={() => disconnect(wallet!)}>Disconnect</button>
+              <button onClick={handleDisconnect}>Disconnect</button>
             </div>
-            {!gameStarted && (
-              <button
-                onClick={startGame}
-                style={{
-                  fontSize: "18px",
-                  padding: "10px 20px",
-                  backgroundColor: "#4CAF50",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-              >
-                Start Game
-              </button>
-            )}
+            <button
+              onClick={startGame}
+              style={{
+                fontSize: "18px",
+                padding: "10px 20px",
+                backgroundColor: "#4CAF50",
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              {gameStarted ? "Restart Game" : "Start Game"}
+            </button>
           </div>
           {gameStarted && (
             <>
@@ -132,23 +148,7 @@ export default function RiddleGame() {
               ) : (
                 <div>
                   <h2>Game Over! Your score is: {score}</h2>
-                  {allCorrect && (
-                    <>
-                      {!prizeClaimed ? (
-                        <button onClick={claimPrize}>Claim Prize</button>
-                      ) : (
-                        <p>Prize claimed!</p>
-                      )}
-                    </>
-                  )}
-                  <button
-                    onClick={() => {
-                      setGameStarted(false);
-                      setGameOver(false);
-                    }}
-                  >
-                    Try Again
-                  </button>
+                  {allCorrect && <p>Congratulations! You've won the game!</p>}
                 </div>
               )}
             </>
