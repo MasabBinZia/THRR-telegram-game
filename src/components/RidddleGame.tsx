@@ -2,17 +2,36 @@ import React from "react";
 import { riddles } from "../riddles";
 import {
   ConnectButton,
+  TransactionButton,
   useActiveAccount,
   useActiveWallet,
   useDisconnect,
+  useReadContract,
 } from "thirdweb/react";
 import { client } from "../lib/client";
 import { inAppWallet } from "thirdweb/wallets";
 import { shortenAddress } from "thirdweb/utils";
+import { getContract } from "thirdweb";
+import { sepolia } from "thirdweb/chains";
+import { claimTo, getBalance } from "thirdweb/extensions/erc20";
+import { Wallet2 } from "lucide-react";
+import { Button } from "./ui/button";
 
 export default function RiddleGame() {
   const account = useActiveAccount();
+
   const { disconnect } = useDisconnect();
+
+  const contract = getContract({
+    client,
+    chain: sepolia,
+    address: "0x2Ae79AC020752eA1803E3241620a7709fa9D0477",
+  });
+
+  const { data: tokenbalance } = useReadContract(getBalance, {
+    contract: contract,
+    address: account?.address!,
+  });
   const wallet = useActiveWallet();
   const [currentRiddle, setCurrentRiddle] = React.useState(0);
   const [score, setScore] = React.useState(0);
@@ -86,47 +105,42 @@ export default function RiddleGame() {
   }, [gameOver, allCorrect]);
 
   return (
-    <div>
-      <h1>Treasure Hunt Riddle Race</h1>
+    <div className="h-1/2 flex flex-col justify-center text-center px-2 w-full bg-black rounded-xl border border-transparent">
+      <h1 className="pirata-one-regular gradient-text">
+        Treasure Hunt Riddle Race.
+      </h1>
       {!account ? (
         <ConnectButton
           client={client}
+          accountAbstraction={{
+            chain: sepolia,
+            sponsorGas: true,
+          }}
           wallets={[
             inAppWallet({
               auth: {
-                options: ["telegram", "google", "discord"],
+                options: ["telegram", "google", "discord", "email"],
               },
             }),
           ]}
         />
       ) : (
-        <>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "20px",
-            }}
-          >
-            <div>
-              {shortenAddress(account.address)}
+        <div className="text-white flex flex-col justify-center items-center">
+          <div>
+            <div className="flex flex-col space-y-4">
+              <div className="flex justify-between gap-10">
+                <p className="flex items-center gap-1">
+                  <span>
+                    <Wallet2 />
+                  </span>{" "}
+                  {shortenAddress(account.address)}
+                </p>
+                <p>Balance: {tokenbalance?.displayValue}</p>
+              </div>
+
               <button onClick={handleDisconnect}>Disconnect</button>
             </div>
-            <button
-              onClick={startGame}
-              style={{
-                fontSize: "18px",
-                padding: "10px 20px",
-                backgroundColor: "#4CAF50",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-              }}
-            >
-              {gameStarted ? "Restart Game" : "Start Game"}
-            </button>
+            <Button onClick={startGame}>Start Game</Button>
           </div>
           {gameStarted && (
             <>
@@ -148,12 +162,30 @@ export default function RiddleGame() {
               ) : (
                 <div>
                   <h2>Game Over! Your score is: {score}</h2>
-                  {allCorrect && <p>Congratulations! You've won the game!</p>}
+                  {allCorrect && (
+                    <div>
+                      Congratulations! You've won the game!
+                      <TransactionButton
+                        transaction={() =>
+                          claimTo({
+                            contract: contract,
+                            to: account.address,
+                            quantity: "10",
+                          })
+                        }
+                        onTransactionConfirmed={() =>
+                          alert("Congratulations! You've won 10 tokens!")
+                        }
+                      >
+                        Claim Prize
+                      </TransactionButton>
+                    </div>
+                  )}
                 </div>
               )}
             </>
           )}
-        </>
+        </div>
       )}
     </div>
   );
