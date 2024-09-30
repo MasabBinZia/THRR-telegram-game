@@ -16,6 +16,7 @@ import { sepolia } from "thirdweb/chains";
 import { claimTo, getBalance } from "thirdweb/extensions/erc20";
 import { Wallet2 } from "lucide-react";
 import { Button } from "./ui/button";
+import BlurIn from "./ui/blur-in";
 
 export default function RiddleGame() {
   const account = useActiveAccount();
@@ -105,10 +106,11 @@ export default function RiddleGame() {
   }, [gameOver, allCorrect]);
 
   return (
-    <div className="h-1/2 flex flex-col justify-center text-center px-2 w-full bg-black rounded-xl border border-transparent">
-      <h1 className="pirata-one-regular gradient-text">
-        Treasure Hunt Riddle Race.
-      </h1>
+    <div className="h-[60%] flex flex-col justify-center text-center px-2 w-full bg-black/80 rounded-xl border border-transparent">
+      {/* <h1 className="pirata-one-regular gradient-text">
+        
+      </h1> */}
+      <BlurIn  word="Treasure Hunt Riddle Race." className="text-4xl pirata-one-regular gradient-text" />
       {!account ? (
         <ConnectButton
           client={client}
@@ -138,7 +140,7 @@ export default function RiddleGame() {
                 <p>Balance: {tokenbalance?.displayValue}</p>
               </div>
 
-              <button onClick={handleDisconnect}>Disconnect</button>
+              <Button onClick={handleDisconnect}>Disconnect</Button>
             </div>
             <Button onClick={startGame}>Start Game</Button>
           </div>
@@ -148,16 +150,18 @@ export default function RiddleGame() {
                 <h2>Game starting in {countDown}...</h2>
               ) : !gameOver ? (
                 <div>
-                  <p>{riddles[currentRiddle].question}</p>
-                  <div>
+                  <p className="pirata-one-regular gradient-text text-xl">{riddles[currentRiddle].question}</p>
+                  <div className="grid grid-cols-2 gap-2">
                     {riddles[currentRiddle].options.map((option) => (
-                      <button key={option} onClick={() => handleAnswer(option)}>
+                      <Button key={option} onClick={() => handleAnswer(option)}>
                         {option}
-                      </button>
+                      </Button>
                     ))}
                   </div>
-                  <p>Score: {score}</p>
-                  <p>Time Left: {timeLeft}s</p>
+                  <div className="flex flex-col space-y-4">
+                    <p>Score: {score}</p>
+                    <p>Time Left: {timeLeft}s</p>
+                  </div>
                 </div>
               ) : (
                 <div>
