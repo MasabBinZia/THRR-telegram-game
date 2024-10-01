@@ -10,6 +10,15 @@ import { Frown, Award, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import confetti from 'canvas-confetti';
 
+type DrawerProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  score: number;
+  allCorrect: boolean;
+  onRestart: () => void;
+  claimPrize: any;
+};
+
 export default function GameStatsDrawer({
   isOpen,
   onClose,
@@ -17,7 +26,7 @@ export default function GameStatsDrawer({
   allCorrect,
   onRestart,
   claimPrize,
-}: any) {
+}: DrawerProps) {
   function onTransactionConfirmed() {
     toast.success("Congratulations! You've won 10 tokens!");
     onClose();
@@ -26,7 +35,10 @@ export default function GameStatsDrawer({
       spread: 70,
       origin: { y: 0.6 },
     });
-    window.location.reload();
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   }
   function tryAgain() {
     onRestart();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { riddles } from '../riddles';
+import { riddles, Riddle } from '../riddles';
 import {
   ConnectButton,
   useActiveAccount,
@@ -17,6 +17,7 @@ import { Wallet2, Timer, Award } from 'lucide-react';
 import { Button } from './ui/button';
 import BlurIn from './ui/blur-in';
 import GameStatsDrawer from './GameStatsDrawer';
+import { shuffle } from '@/lib/utils';
 
 export default function RiddleGame() {
   const account = useActiveAccount();
@@ -39,6 +40,7 @@ export default function RiddleGame() {
   const [gameStarted, setGameStarted] = React.useState(false);
   const [countDown, setCountDown] = React.useState(3);
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const [shuffledRiddles, setShuffledRiddles] = React.useState<Riddle[]>([]);
 
   React.useEffect(() => {
     if (gameStarted && countDown === 0 && timeLeft > 0) {
@@ -62,11 +64,21 @@ export default function RiddleGame() {
     }
   }, [gameOver]);
 
+  const shuffleRiddles = () => {
+    const shuffled = shuffle(
+      riddles.map((riddle) => ({
+        ...riddle,
+        options: shuffle(riddle.options),
+      })),
+    );
+    setShuffledRiddles(shuffled);
+  };
+
   const handleAnswer = (answer: string) => {
-    if (answer === riddles[currentRiddle].answer) {
+    if (answer === shuffledRiddles[currentRiddle].answer) {
       setScore(score + 1);
     }
-    if (currentRiddle < riddles.length - 1) {
+    if (currentRiddle < shuffledRiddles.length - 1) {
       setCurrentRiddle(currentRiddle + 1);
     } else {
       setGameOver(true);
@@ -74,6 +86,7 @@ export default function RiddleGame() {
   };
 
   const startGame = () => {
+    shuffleRiddles();
     setCountDown(3);
     setCurrentRiddle(0);
     setScore(0);
@@ -89,10 +102,13 @@ export default function RiddleGame() {
     setGameOver(false);
     setGameStarted(false);
     setCountDown(3);
+    setShuffledRiddles([]);
   };
 
   const handleDisconnect = async () => {
-    await disconnect(wallet!);
+    if (wallet) {
+      await disconnect(wallet);
+    }
     resetGameState();
   };
 
@@ -113,7 +129,7 @@ export default function RiddleGame() {
     }
   };
 
-  const allCorrect = score === riddles.length;
+  const allCorrect = score === shuffledRiddles.length;
 
   return (
     <div className="h-[60%] flex flex-col justify-center text-center px-4 w-full bg-gradient-to-br from-purple-900 to-blue-900 rounded-xl border border-purple-500 mx-auto shadow-lg">
@@ -173,15 +189,16 @@ export default function RiddleGame() {
             <>
               {countDown > 0 ? (
                 <h2 className="text-3xl font-bold text-yellow-400">
-                  Game starting in {countDown}...
+                  Game starting in <br />
+                  <span className="text-5xl">{countDown}</span>
                 </h2>
               ) : !gameOver ? (
                 <div className="space-y-6 w-full max-w-md">
                   <p className="pirata-one-regular text-yellow-400 text-2xl bg-black/30 p-4 rounded-lg">
-                    {riddles[currentRiddle].question}
+                    {shuffledRiddles[currentRiddle]?.question}
                   </p>
                   <div className="grid grid-cols-2 gap-4">
-                    {riddles[currentRiddle].options.map((option) => (
+                    {shuffledRiddles[currentRiddle]?.options.map((option) => (
                       <Button
                         key={option}
                         onClick={() => handleAnswer(option)}
