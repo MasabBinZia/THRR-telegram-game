@@ -5,7 +5,7 @@
 
 # Treasure Hunt Riddle Race (THRR)
 
-Welcome to the **Treasure Hunt Riddle Race (THRR)** Telegram mini app! Test your wits and speed by solving 10 riddles in just 60 seconds. Answer all correctly to earn tokens in your wallet!
+Welcome to the **Treasure Hunt Riddle Race (THRR)** Telegram mini app! Test your wits and speed by solving 10 riddles in just 100 seconds. Answer all correctly to earn tokens in your wallet!
 
 ## Table of Contents
 
@@ -18,7 +18,7 @@ Welcome to the **Treasure Hunt Riddle Race (THRR)** Telegram mini app! Test your
 
 ## Features
 
-- **Fast-Paced Riddles:** Solve 10 challenging riddles in 60 seconds.
+- **Fast-Paced Riddles:** Solve 10 challenging riddles in 100 seconds.
 - **Token Rewards:** Successfully answering all riddles grants you 10 tokens directly to your wallet.
 - **Responsive Design:** Built with a user-friendly interface for an engaging experience.
 - **Real-Time Feedback:** Get instant feedback on your answers.
@@ -69,7 +69,7 @@ To set up the project locally, follow these steps:
 
 1. Open the THRR mini app on Telegram.
 2. Start the game and answer the riddles presented.
-3. Aim to answer all 10 riddles within 60 seconds.
+3. Aim to answer all 10 riddles within 100 seconds.
 4. If all answers are correct, enjoy your 10 tokens!
 
 ## Contributing

@@ -35,7 +35,7 @@ export default function RiddleGame() {
   const wallet = useActiveWallet();
   const [currentRiddle, setCurrentRiddle] = React.useState(0);
   const [score, setScore] = React.useState(0);
-  const [timeLeft, setTimeLeft] = React.useState(60);
+  const [timeLeft, setTimeLeft] = React.useState(100);
   const [gameOver, setGameOver] = React.useState(false);
   const [gameStarted, setGameStarted] = React.useState(false);
   const [countDown, setCountDown] = React.useState(3);
@@ -90,7 +90,7 @@ export default function RiddleGame() {
     setCountDown(3);
     setCurrentRiddle(0);
     setScore(0);
-    setTimeLeft(60);
+    setTimeLeft(100);
     setGameOver(false);
     setGameStarted(true);
   };
@@ -98,7 +98,7 @@ export default function RiddleGame() {
   const resetGameState = () => {
     setCurrentRiddle(0);
     setScore(0);
-    setTimeLeft(60);
+    setTimeLeft(100);
     setGameOver(false);
     setGameStarted(false);
     setCountDown(3);
