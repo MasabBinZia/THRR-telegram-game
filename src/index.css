@@ -1,17 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  background-image: url("/bg-img.jpg"); /* Ensure the path is correct */
+  background-image: url('/bg-img.jpg'); /* Ensure the path is correct */
   background-size: cover; /* Makes the image cover the entire background */
   background-position: center; /* Centers the background image */
   background-repeat: no-repeat; /* Prevents the image from repeating */
@@ -54,40 +48,37 @@ button:focus-visible {
   }
 }
 
-
 .glassy-card {
- @apply h-full w-full bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100
+  @apply h-full w-full bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100;
 }
 
 .pirata-one-regular {
-  font-family: "Pirata One", system-ui;
+  font-family: 'Pirata One', system-ui;
   font-weight: 400;
   font-style: normal;
 }
 
-
 .gradient-text {
   color: transparent; /* Make text transparent */
   background: linear-gradient(
-    to bottom,
-    #FEDB37 0%,
-    #FDB931 8%,
-    #9f7928 30%,
-    #8A6E2F 40%,
-    transparent 80%
-  ),
-  linear-gradient(
-    to top,
-    #FFFFFF 0%,
-    #FFFFAC 8%,
-    #D1B464 25%,
-    #5d4a1f 62.5%,
-    #5d4a1f 100%
-  );
+      to bottom,
+      #fedb37 0%,
+      #fdb931 8%,
+      #9f7928 30%,
+      #8a6e2f 40%,
+      transparent 80%
+    ),
+    linear-gradient(
+      to top,
+      #ffffff 0%,
+      #ffffac 8%,
+      #d1b464 25%,
+      #5d4a1f 62.5%,
+      #5d4a1f 100%
+    );
   background-clip: text; /* Clip background to text */
   -webkit-background-clip: text; /* For WebKit browsers */
 }
-
 
 @layer base {
   :root {
@@ -144,7 +135,6 @@ button:focus-visible {
     --chart-5: 340 75% 55%;
   }
 }
-
 
 @layer base {
   * {
