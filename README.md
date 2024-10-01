@@ -1,50 +1,85 @@
-# React + TypeScript + Vite
+<p align="">
+  <img src="https://github.com/user-attachments/assets/f33cae51-6ce8-4ecb-b8f3-72baec1015e5" alt="THRR Logo" width="100" height="100">
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+# Treasure Hunt Riddle Race (THRR)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Welcome to the **Treasure Hunt Riddle Race (THRR)** Telegram mini app! Test your wits and speed by solving 10 riddles in just 60 seconds. Answer all correctly to earn tokens in your wallet!
 
-## Expanding the ESLint configuration
+## Table of Contents
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-- Configure the top-level `parserOptions` property like this:
+## Features
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **Fast-Paced Riddles:** Solve 10 challenging riddles in 60 seconds.
+- **Token Rewards:** Successfully answering all riddles grants you 10 tokens directly to your wallet.
+- **Responsive Design:** Built with a user-friendly interface for an engaging experience.
+- **Real-Time Feedback:** Get instant feedback on your answers.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Tech Stack
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+This project utilizes the following technologies:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **React:** For building the user interface.
+- **Vite:** A fast build tool for React applications.
+- **TypeScript:** For type safety and better development experience.
+- **ShadcnUI:** UI components for a seamless user interface.
+- **Tailwind CSS:** For custom styling and responsive design.
+- **Framer Motion:** For smooth animations and transitions.
+- **Bun:** A modern JavaScript runtime for optimal performance.
+
+## Installation
+
+To set up the project locally, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/thrr-telegram-game.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd thrr-telegram-game
+   ```
+
+3. Install the dependencies:
+
+   ```bash
+   bun install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   bun dev
+   ```
+
+5. Open your browser and go to `http://localhost:5173`.
+
+## Usage
+
+1. Open the THRR mini app on Telegram.
+2. Start the game and answer the riddles presented.
+3. Aim to answer all 10 riddles within 60 seconds.
+4. If all answers are correct, enjoy your 10 tokens!
+
+## Contributing
+
+Contributions are welcome! If you'd like to help out, please fork the repository and submit a pull request. For any issues or feature requests, feel free to open an issue on GitHub.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+
+---
+
+Enjoy the race, and may your riddles be sharp! 🏆✨
