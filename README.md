@@ -34,6 +34,7 @@ This project utilizes the following technologies:
 - **Tailwind CSS:** For custom styling and responsive design.
 - **Framer Motion:** For smooth animations and transitions.
 - **Bun:** A modern JavaScript runtime for optimal performance.
+- **ThirdWeb:** For Token Drop and Web3 Auth.
 
 ## Installation
 
@@ -42,7 +43,7 @@ To set up the project locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/thrr-telegram-game.git
+   git clone https://github.com/MasabBinZia/THRR-telegram-game.git
    ```
 
 2. Navigate to the project directory:
